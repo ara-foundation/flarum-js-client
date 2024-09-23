@@ -119,8 +119,16 @@ export class FlarumDiscussions {
      * @param api 
      * @param discussion 
      */
-    static create = async(api: FlarumApi, discussion: Discussion): Promise<void> => {
-        throw `not implemented yet`;
+    static create = async(api: FlarumApi, discussion: Discussion): Promise<string|Discussion> => {
+        const url = `${api.endpoint}/discussions`;
+        const body = JSON.stringify(discussion);
+        const response = await api.postFetch(url, body);
+
+        if (typeof(response) === 'string') {
+            return response;
+        }
+
+        return response as Discussion;
     }
 
     /**

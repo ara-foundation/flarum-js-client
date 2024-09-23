@@ -6,7 +6,7 @@ export type Response = {
 export type HexColor = `#{string}`;
 export type RelationshipElement = {
     type: "groups" | "tags" | "ranks" | "posts" | "users",
-    id: number
+    id: number|string
 }
 
 export type ContentType = "comment" | string;
@@ -133,40 +133,41 @@ export type Links = {
 
 export type DiscussionData = {
     type: "discussions",
-    id: number,
+    id?: number,
     attributes: {
       title: string,
-      slug: string,
-      commentCount: number,
-      participantCount: number,
-      createdAt: string,
-      lastPostedAt: string,
-      lastPostNumber: number,
-      canReply: boolean,
-      canRename: boolean,
-      canDelete: boolean,
-      canHide: boolean,
-      seeVotes: boolean,
-      canVote: boolean,
-      canTag: boolean,
-      hasPoll: boolean,
-      canStartPoll: boolean,
-      isSticky: boolean,
-      canSticky: boolean,
-      isLocked: boolean,
-      canLock: boolean
+      content?: string,
+      slug?: string,
+      commentCount?: number,
+      participantCount?: number,
+      createdAt?: string,
+      lastPostedAt?: string,
+      lastPostNumber?: number,
+      canReply?: boolean,
+      canRename?: boolean,
+      canDelete?: boolean,
+      canHide?: boolean,
+      seeVotes?: boolean,
+      canVote?: boolean,
+      canTag?: boolean,
+      hasPoll?: boolean,
+      canStartPoll?: boolean,
+      isSticky?: boolean,
+      canSticky?: boolean,
+      isLocked?: boolean,
+      canLock?: boolean
     },
     relationships: {
-        user: {
+        user?: {
             data: RelationshipElement
         },
-        lastPostedUser: {
+        lastPostedUser?: {
             data: RelationshipElement
         },
-        tags: {
+        tags?: {
             data: RelationshipElement[]
         },
-        firstPost: {
+        firstPost?: {
             data: RelationshipElement
         }
     }
@@ -180,7 +181,7 @@ export type Discussions = {
 
 export type Discussion = {
     data: DiscussionData,
-    included: Array<IncludedUser|IncludedTag|IncludedPost|IncludedGroup>;
+    included?: Array<IncludedUser|IncludedTag|IncludedPost|IncludedGroup>;
 }
 
 export type DiscussionFilter = {

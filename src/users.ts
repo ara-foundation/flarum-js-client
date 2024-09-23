@@ -91,6 +91,7 @@ export class FlarumUsers {
      */
     static create = async(api: FlarumApi, user: User): Promise<string|User> => {
         const url = `${api.endpoint}/users`;
+        user.data.attributes.isEmailConfirmed = true;
         const body = JSON.stringify(user);
         const response = await api.postFetch(url, body);
 

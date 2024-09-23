@@ -1,6 +1,6 @@
 {
   "name": "@ara-foundation/flarum-js-client",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "description": "A Flarum PHP framework public endpoint client in Javascript/Typescript",
   "main": "dist/index.js",

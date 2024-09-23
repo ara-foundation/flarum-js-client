@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { FlarumApi, FlarumDiscussions, FlarumUsers } from "../src/index";
-import { User } from '../src/types';
+import { Discussion, User } from '../src/types';
 
 let flarumApi = new FlarumApi(process.env.FORUM_API_ENDPOINT!, true);
 
@@ -11,7 +11,7 @@ async function main() {
     // const status = await flarumApi.authorize(process.env.FLARUM_ADMIN_ID!, process.env.FORUM_API_KEY!);
 
     // uncomment to authorize with the access key.
-    const status = await flarumApi.authorize(process.env.FORUM_ADMIN_USER!, process.env.FORUM_ADMIN_PASSWORD!);
+    let status = await flarumApi.authorize(process.env.FORUM_ADMIN_USER!, process.env.FORUM_ADMIN_PASSWORD!);
     if (status) {
         console.error(status);
         process.exit(1);
@@ -69,6 +69,42 @@ async function main() {
         return;
     } else {
         console.log(createdUser);
+    }
+
+    status = await flarumApi.authorize(user.data.attributes.username, user.data.attributes.password);
+    if (status) {
+        console.error(status);
+        process.exit(1);
+    }
+
+    const discussion: Discussion = {
+        data: {
+            type: "discussions",
+            attributes: {
+                title: `Sometimes, you let everything go...`,
+                // title: `Sometimes, you let everything go...${new Date()}`,
+                content: "Because, as you let it go, you got a feeling that something good comes."
+            },
+            relationships: {
+                tags: {
+                    data: [
+                        {
+                            type: "tags",
+                            id: process.env.FORUM_LOGOS_TAG_ID!
+                        }
+                    ]
+                }
+            }
+        },
+    }
+    const createdDiscussion = await FlarumDiscussions.create(flarumApi, discussion)
+    if (typeof(createdDiscussion) === 'string') {
+        console.log(`Tag ID: ${process.env.FORUM_LOGOS_TAG_ID}`);
+        console.error(createdDiscussion);
+        return;
+    } else {
+        console.log(createdDiscussion);
+        console.log(`Discussion was created`);
     }
 }
 
