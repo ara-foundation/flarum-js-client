@@ -9,10 +9,13 @@ async function main() {
     // api key is generated using npx tsx ./test/start.ts
     // const status = await flarumApi.authorize(process.env.FLARUM_ADMIN_ID!, process.env.FORUM_API_KEY!);
 
-    const status = await flarumApi.authorize(process.env.FORUM_ADMIN_USER!, process.env.FORUM_ADMIN_PASSWORD!);
-    if (status) {
-        console.log(status);
-    }
+    // const status = await flarumApi.authorize(process.env.FORUM_ADMIN_USER!, process.env.FORUM_ADMIN_PASSWORD!);
+    // if (status) {
+        // console.log(status);
+    // }
+
+    const forum = await flarumApi.get();
+    console.log(forum);
 }
 
 main();

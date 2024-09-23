@@ -1,4 +1,4 @@
-import { Status } from "./types";
+import { Forum, Status } from "./types";
 import * as crypto from "node:crypto";
 
 export type AuthorizeRequest = {
@@ -39,6 +39,16 @@ export class FlarumApi {
         }
     }
 
+    /**
+     * @description Authorize the Client to access the Flarum Endpoint.
+     * Without authorization, Most of the POST/PUT/DELETE operations are not available.
+     * 
+     * Flarum supports two way of authentication, either through API Keys.
+     * Or through the Access Tokens.
+     * @param userNameOrUserId if authorizing with api key, pass the user ID, otherwise pass the username
+     * @param passwordOrApiToken if authorizing with the api key, pass api key, otherwise pass the password.
+     * @returns string for error and undefined in case of success
+     */
     public authorize = async (userNameOrUserId: string | number, passwordOrApiToken: string): Promise<Status> => {
         if (typeof(userNameOrUserId) == 'number') {
             this.token = passwordOrApiToken;
@@ -85,5 +95,42 @@ export class FlarumApi {
         }
 
         return undefined;
+    }
+
+    /**
+     * @description Get information about the forum, including groups and tags
+     */
+    public get = async (): Promise<string|Forum> => {
+        const url = `${this.endpoint}`;
+
+        const response = await fetch(url, {
+            headers: {
+                'Content-Type': `application/json`
+            },
+            method: "GET",
+        })
+
+        if (!response.ok) {
+            return `Response Status ${response.status}: ${response.statusText}`;
+        }
+
+        try {
+            const json = await response.json();
+            const reply = json as Forum;
+            if (reply === undefined) {
+                throw `Failed to get Forum`;
+            }
+            return reply
+        } catch (e) {
+            return JSON.stringify(e);
+        }
+    }
+
+    /**
+     * @description Update forum config
+     */
+    public path = async (): Promise<undefined> => {
+        // https://github.com/flarum/flarum.github.io/blob/20322c0e6011e4f304ae7e95f41594a0b086bc27/_docs/api.md
+        throw `TODO: implement`;
     }
 }
