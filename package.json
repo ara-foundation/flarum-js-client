@@ -1,0 +1,31 @@
+{
+  "name": "flarum-js-client",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "A Flarum PHP framework public endpoint client in Javascript/Typescript",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ara-foundation/flarum-js-client.git"
+  },
+  "keywords": [
+    "flarum",
+    "ara",
+    "forum"
+  ],
+  "author": "Medet Ahmetson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ara-foundation/flarum-js-client/issues"
+  },
+  "homepage": "https://github.com/ara-foundation/flarum-js-client#readme",
+  "devDependencies": {
+    "@types/node": "^22.5.5",
+    "dotenv": "^16.4.5",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2"
+  }
+}
