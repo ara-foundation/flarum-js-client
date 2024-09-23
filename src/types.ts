@@ -62,6 +62,12 @@ export type IncludedPost = RelationshipElement & {
     }
 }
 
+export type IncludedRank = RelationshipElement & {
+    attributes: {
+        [key: string]: any,
+    }
+}
+
 export type ForumData = {
     type: "forums";
     id: number;
@@ -179,4 +185,47 @@ export type Discussion = {
 
 export type DiscussionFilter = {
     userName?: string,
+}
+
+export type UserFilter = {
+    userName?: string,
+}
+
+export type UserData = {
+    type?: "users",
+    id?: number,
+    attributes: {
+        username: string,
+        displayName?: string,
+        avatarUrl?: string,
+        slug?: string,
+        joinTime?: string,
+        discussionCount?: number,
+        commentCount?: number,
+        canEdit?: boolean,
+        canEditCredentials?: boolean,
+        canEditGroups?: boolean,
+        canDelete?: boolean,
+        lastSeenAt?: string,
+        isEmailConfirmed?: boolean,
+        email: string,
+        bio?: string,
+        canViewBio?: boolean,
+        canEditBio?: boolean,
+        points?: number,
+        canHaveVotingNotifications?: boolean
+        password?: string,
+    },
+    relationships?: { groups: { data: RelationshipElement[] }, ranks: { data: RelationshipElement[] } },
+}
+
+export type Users = {
+    links: Links,
+    data: UserData[],
+    included: Array<IncludedRank|IncludedGroup>;
+}
+
+export type User = {
+    data: UserData,
+    included: Array<IncludedRank|IncludedGroup>;
 }

@@ -133,4 +133,50 @@ export class FlarumApi {
         // https://github.com/flarum/flarum.github.io/blob/20322c0e6011e4f304ae7e95f41594a0b086bc27/_docs/api.md
         throw `TODO: implement`;
     }
+
+    /**
+     * @description fetch the data through authentication
+     */
+    public getFetch = async (url: string): Promise<string|any> => {
+        const response = await fetch(url, {
+            headers: {
+                'Content-Type': `application/json`,
+                'Authorization': `Token ${this.token}`
+            },
+            method: "GET",
+        })
+
+        if (!response.ok) {
+            return `Response Status ${response.status}: ${response.statusText}`;
+        }
+
+        try {
+            const json = await response.json();
+            return json;
+        } catch (e) {
+            return JSON.stringify(e);
+        }
+    }
+
+    public postFetch = async (url: string, body: string): Promise<string|any> => {
+        const response = await fetch(url, {
+            headers: {
+                'Content-Type': `application/json`,
+                'Authorization': `Token ${this.token}`
+            },
+            method: "POST",
+            body: body,
+        })
+
+        if (!response.ok) {
+            return `Response Status ${response.status}: ${response.statusText}`;
+        }
+
+        try {
+            const json = await response.json();
+            return json;
+        } catch (e) {
+            return JSON.stringify(e);
+        }
+    }
 }
