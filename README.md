@@ -21,3 +21,13 @@ To see how it's done, run `npx tsx ./test/start.ts`
 Or issue a 1 hour session token. Print the access token, if you enabled the verbose flag in FlarumApi.
 Add the session token to the .env.
 The command to issue a token:
+
+
+# Maintainers
+
+Simply upgrade the version in package.json.
+Then call to make it available in the NPMJS.
+
+```
+npm publish --access public
+```
