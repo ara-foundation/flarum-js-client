@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { FlarumApi } from "../src/index";
+import { FlarumApi, FlarumDiscussions } from "../src/index";
 
 let flarumApi = new FlarumApi(process.env.FORUM_API_ENDPOINT!, true);
 
@@ -9,19 +9,31 @@ async function main() {
     // api key is generated using npx tsx ./test/start.ts
     // const status = await flarumApi.authorize(process.env.FLARUM_ADMIN_ID!, process.env.FORUM_API_KEY!);
 
+    // uncomment to authorize with the access key.
     // const status = await flarumApi.authorize(process.env.FORUM_ADMIN_USER!, process.env.FORUM_ADMIN_PASSWORD!);
     // if (status) {
         // console.log(status);
     // }
 
-    const forum = await flarumApi.get();
-    console.log(forum);
+    // get general forum information including groups, and tags
+    // const forum = await flarumApi.get();
+    // console.log(forum);
+
+    const discussions = await FlarumDiscussions.getAll(flarumApi);
+    if (typeof(discussions) === 'string') {
+        console.error(discussions);
+        return;
+    } else {
+        // console.log(discussions.data);
+    }
+
+    const discussion = await FlarumDiscussions.get(flarumApi, discussions.data[0].id)
+    if (typeof(discussion) === 'string') {
+        console.error(discussion);
+        return;
+    } else {
+        console.log(discussion);
+    }
 }
 
 main();
-// // Return all apis
-// await FlarumDiscussions.getAll(flarumApi, filter?);
-// await FlarumDiscussions.create(flarumApi);
-// await FlarumDiscussions.get(flarumApi, id);
-// await FlarumDiscussions.patch(flarumApi, id, discussion);
-// await FlarumDiscussions.delete();

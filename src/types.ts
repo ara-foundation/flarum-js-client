@@ -4,12 +4,14 @@ export type Response = {
 }
 
 export type HexColor = `#{string}`;
-export type ForumRelElement = {
-    type: "groups" | "tags" | "ranks",
+export type RelationshipElement = {
+    type: "groups" | "tags" | "ranks" | "posts" | "users",
     id: number
 }
 
-export type ForumIncludedGroup = ForumRelElement & {
+export type ContentType = "comment" | string;
+
+export type IncludedGroup = RelationshipElement & {
     attributes: {
         nameSingular: string,
         namePlural: string;
@@ -19,7 +21,7 @@ export type ForumIncludedGroup = ForumRelElement & {
     }
 }
 
-export type ForumIncludedTag = ForumRelElement & {
+export type IncludedTag = RelationshipElement & {
     attributes: {
         name: string,
         description: string,
@@ -37,6 +39,26 @@ export type ForumIncludedTag = ForumRelElement & {
         canStartDiscussion: boolean,
         canAddToDiscussion: boolean,
         subscription?: string
+    }
+}
+
+export type IncludedUser = RelationshipElement & {
+    attributes: {
+      username: string,
+      displayName: string,
+      avatarUrl: string,
+      slug: string
+    }
+}
+
+export type IncludedPost = RelationshipElement & {
+    attributes: {
+      number: number,
+      createdAt: string,
+      contentType: ContentType,
+      contentHtml: string,
+      renderFailed: boolean,
+      mentionedByCount: number
     }
 }
 
@@ -81,18 +103,80 @@ export type ForumData = {
     },
     relationships: {
         groups: {
-            data: ForumRelElement[]
+            data: RelationshipElement[]
         },
         tags: {
-            data: ForumRelElement[]
+            data: RelationshipElement[]
         },
         ranks: {
-            data: ForumRelElement[]
+            data: RelationshipElement[]
         }
     }
 }
 
 export type Forum = {
     data: ForumData,
-    included: Array<ForumIncludedGroup|ForumIncludedTag>
+    included: Array<IncludedGroup|IncludedTag>
+}
+
+export type Links = {
+    first: string,
+    prev?: string,
+    next?: string,
+}
+
+export type DiscussionData = {
+    type: "discussions",
+    id: number,
+    attributes: {
+      title: string,
+      slug: string,
+      commentCount: number,
+      participantCount: number,
+      createdAt: string,
+      lastPostedAt: string,
+      lastPostNumber: number,
+      canReply: boolean,
+      canRename: boolean,
+      canDelete: boolean,
+      canHide: boolean,
+      seeVotes: boolean,
+      canVote: boolean,
+      canTag: boolean,
+      hasPoll: boolean,
+      canStartPoll: boolean,
+      isSticky: boolean,
+      canSticky: boolean,
+      isLocked: boolean,
+      canLock: boolean
+    },
+    relationships: {
+        user: {
+            data: RelationshipElement
+        },
+        lastPostedUser: {
+            data: RelationshipElement
+        },
+        tags: {
+            data: RelationshipElement[]
+        },
+        firstPost: {
+            data: RelationshipElement
+        }
+    }
+}
+
+export type Discussions = {
+    links: Links,
+    data: DiscussionData[],
+    included: Array<IncludedUser|IncludedTag|IncludedPost|IncludedGroup>;
+}
+
+export type Discussion = {
+    data: DiscussionData,
+    included: Array<IncludedUser|IncludedTag|IncludedPost|IncludedGroup>;
+}
+
+export type DiscussionFilter = {
+    userName?: string,
 }
