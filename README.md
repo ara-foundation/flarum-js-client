@@ -31,3 +31,8 @@ Then call to make it available in the NPMJS.
 ```
 npm publish --access public
 ```
+
+# References for contributors
+
+* https://docs.flarum.org/rest-api/#access-tokens
+* https://github.com/flarum/flarum.github.io/blob/20322c0e6011e4f304ae7e95f41594a0b086bc27/_docs/api.md
