@@ -186,8 +186,8 @@ export type Discussion = {
 
 /** Discussion Filters ${userName} for the username, ${tagSlug} to query by tag or ${q} to search */
 export type DiscussionFilter = {
-    userName?: string,
-    tagSlug?: string,
+    author?: string,
+    tag?: string,
     q?: string,
 }
 
