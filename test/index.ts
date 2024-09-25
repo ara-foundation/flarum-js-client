@@ -71,7 +71,7 @@ async function main() {
         console.log(createdUser);
     }
 
-    status = await flarumApi.authorize(user.data.attributes.username, user.data.attributes.password);
+    status = await flarumApi.authorize(user.data.attributes.username, user.data.attributes.password!);
     if (status) {
         console.error(status);
         process.exit(1);

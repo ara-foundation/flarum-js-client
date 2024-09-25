@@ -40,6 +40,21 @@ export class FlarumApi {
     }
 
     /**
+     * Creates a new FlarumApi authorized with the given token.
+     * @param token 
+     * @returns FlarumApi
+     */
+    public cloneWithToken = (token: string, userId?: number): FlarumApi => {
+        let api = new FlarumApi(this.endpoint, this.verbose);
+        api.token = token;
+        if (userId) {
+            api.userId = userId;
+        }
+
+        return api;
+    }
+
+    /**
      * @description Authorize the Client to access the Flarum Endpoint.
      * Without authorization, Most of the POST/PUT/DELETE operations are not available.
      * 

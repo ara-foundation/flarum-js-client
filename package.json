@@ -1,8 +1,8 @@
 {
   "name": "@ara-foundation/flarum-js-client",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "module",
-  "description": "A Flarum PHP framework public endpoint client in Javascript/Typescript",
+  "description": "A Flarum PHP framework public endpoint client in Javascript/Typescript. Create your own clients or admin panel for your forum",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

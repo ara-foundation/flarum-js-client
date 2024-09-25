@@ -43,7 +43,7 @@ export class FlarumDiscussions {
         }
     }
 
-    static getNext = async(api: FlarumApi, discussions: Discussions): Promise<string|Discussions> => {
+    static getNext = async(discussions: Discussions): Promise<string|Discussions> => {
         if (!discussions.links.next) {
             const empty: Discussions = {
                 links: {
@@ -54,31 +54,10 @@ export class FlarumDiscussions {
             }
             return empty;
         }
-        const response = await fetch(discussions.links.next, {
-            headers: {
-                'Content-Type': `application/json`
-            },
-            method: "GET",
-        })
-
-        if (!response.ok) {
-            return `Response Status ${response.status}: ${response.statusText}`;
-        }
-
-        try {
-            const json = await response.json();
-            const reply = json as Discussions;
-            if (reply === undefined) {
-                throw `Failed to get Discussion`;
-            }
-
-            return reply;
-        } catch (e) {
-            return JSON.stringify(e);
-        }
+        return FlarumDiscussions.getAllByUrl(discussions.links.next);
     }
 
-    static getPrev = async(api: FlarumApi, discussions: Discussions): Promise<string|Discussions> => {
+    static getPrev = async(discussions: Discussions): Promise<string|Discussions> => {
         if (!discussions.links.prev) {
             const empty: Discussions = {
                 links: {
@@ -89,7 +68,11 @@ export class FlarumDiscussions {
             }
             return empty;
         }
-        const response = await fetch(discussions.links.prev, {
+        return FlarumDiscussions.getAllByUrl(discussions.links.prev);
+    }
+
+    static getAllByUrl = async(url: string): Promise<string|Discussions> => {
+        const response = await fetch(url, {
             headers: {
                 'Content-Type': `application/json`
             },

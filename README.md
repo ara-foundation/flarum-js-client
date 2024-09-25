@@ -25,9 +25,18 @@ The command to issue a token:
 
 # Maintainers
 
-Simply upgrade the version in package.json.
+1. Simply upgrade the version in package.json.
 Then call to make it available in the NPMJS.
 
+2. Add the tag on git.
+
+3. Compile the Javascript:
+
+```
+tsc
+```
+
+4. Then publish:
 ```
 npm publish --access public
 ```
