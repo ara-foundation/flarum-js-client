@@ -1,4 +1,7 @@
-export type Status = undefined | string;
+export type CreateSessionToken = {
+    token: string;
+}
+
 export type Response = {
     data: Forum
 }

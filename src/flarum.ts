@@ -1,4 +1,4 @@
-import { Forum, Status } from "./types";
+import { Forum, CreateSessionToken } from "./types";
 import * as crypto from "node:crypto";
 
 export type AuthorizeRequest = {
@@ -64,11 +64,11 @@ export class FlarumApi {
      * @param passwordOrApiToken if authorizing with the api key, pass api key, otherwise pass the password.
      * @returns string for error and undefined in case of success
      */
-    public authorize = async (userNameOrUserId: string | number, passwordOrApiToken: string): Promise<Status> => {
+    public authorize = async (userNameOrUserId: string | number, passwordOrApiToken: string): Promise<CreateSessionToken|string> => {
         if (typeof(userNameOrUserId) == 'number') {
             this.token = passwordOrApiToken;
             this.userId = userNameOrUserId;
-            return;
+            return {token: this.token};
         }
         const body: AuthorizeRequest = {
             identification: userNameOrUserId,
@@ -109,7 +109,7 @@ export class FlarumApi {
             return JSON.stringify(e);
         }
 
-        return undefined;
+        return {token: this.token};
     }
 
     /**
