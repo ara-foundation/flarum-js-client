@@ -16,7 +16,7 @@ export class FlarumUsers {
         }
 
         if (q.length > 0) {
-            urlParams += `?q=${q}`;
+            urlParams += `?filter[q]=${q}`;
         }
         const response = await api.getFetch(urlParams);
 

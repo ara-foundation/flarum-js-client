@@ -184,8 +184,11 @@ export type Discussion = {
     included?: Array<IncludedUser|IncludedTag|IncludedPost|IncludedGroup>;
 }
 
+/** Discussion Filters ${userName} for the username, ${tagSlug} to query by tag or ${q} to search */
 export type DiscussionFilter = {
     userName?: string,
+    tagSlug?: string,
+    q?: string,
 }
 
 export type UserFilter = {

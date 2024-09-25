@@ -3,21 +3,30 @@ import { FlarumApi } from "./flarum";
 
 export class FlarumDiscussions {
     /**
+     * @description Returns Flarum Discussions endpoint with the applied parameters
+     */
+    static apiUrl = (api: FlarumApi, discussionsFilter?: DiscussionFilter): string => {
+        let url = `${api.endpoint}/discussions?`;
+        if (!discussionsFilter) {
+            return url;
+        }
+
+        for (let filter in discussionsFilter) {
+            const filterKey = filter as keyof typeof discussionsFilter
+            url += `filter[${filter}]=${discussionsFilter[filterKey]}&`;
+        }
+
+        return url;
+    }
+
+    /**
      * @description get all discussions (sort is -time by default)
      * @param userNameOrUserId if authorizing with api key, pass the user ID, otherwise pass the username
      * @param passwordOrApiToken if authorizing with the api key, pass api key, otherwise pass the password.
      * @returns string for error and undefined in case of success
      */
     static getAll = async (api: FlarumApi, discussionsFilter?: DiscussionFilter): Promise<string|Discussions> => {
-        let q = '';
-        if (discussionsFilter && discussionsFilter.userName) {
-            q = discussionsFilter.userName;
-        }
-
-        let url = `${api.endpoint}/discussions`;
-        if (q.length > 0) {
-            url += `?q=${q}`;
-        }
+        let url = FlarumDiscussions.apiUrl(api, discussionsFilter);
 
         const response = await fetch(url, {
             headers: {

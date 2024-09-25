@@ -45,3 +45,4 @@ npm publish --access public
 
 * https://docs.flarum.org/rest-api/#access-tokens
 * https://github.com/flarum/flarum.github.io/blob/20322c0e6011e4f304ae7e95f41594a0b086bc27/_docs/api.md
+* https://forum.ara.foundation/api/discussions?include=user,lastPostedUser,tags,tags.parent&filter[author]=ahmetson&filter[tag]=11&sort=-createdAt
