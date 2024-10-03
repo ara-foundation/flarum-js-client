@@ -139,4 +139,20 @@ export class FlarumUsers {
         // https://github.com/flarum/flarum.github.io/blob/20322c0e6011e4f304ae7e95f41594a0b086bc27/_docs/api.md
         throw `TODO: implement`;
     }
+
+    /**
+     * Checks whether the given token is valid or not. In case of an error returns an error string.
+     * @param api FlarumApi.
+     * @param token access token
+     */
+    static canAccess = async (api: FlarumApi, token: string): Promise<boolean> => {
+        const url = `${api.endpoint}/access-tokens`;
+        var tempApi = api.cloneWithToken(token);
+        const response = await tempApi.getFetch(url);
+
+        if (typeof(response) === 'string') {
+            return false;
+        }
+        return true;
+    }
 }

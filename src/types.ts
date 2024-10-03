@@ -8,11 +8,24 @@ export type Response = {
 
 export type HexColor = `#{string}`;
 export type RelationshipElement = {
-    type: "groups" | "tags" | "ranks" | "posts" | "users",
+    type: "groups" | "tags" | "ranks" | "posts" | "users" | "access-tokens",
     id: number|string
 }
 
 export type ContentType = "comment" | string;
+
+export type AccessToken = RelationshipElement & {
+    attributes: {
+        userId: number;
+        createdAt: string;
+        lastActivityAt: string;
+        isCurrent: boolean,
+        isSessionToken: boolean,
+        title?: string,
+        lastIpAddress: string,
+        device: string;
+    }
+}
 
 export type IncludedGroup = RelationshipElement & {
     attributes: {
