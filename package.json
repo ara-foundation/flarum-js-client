@@ -1,7 +1,7 @@
 {
   "name": "@ara-foundation/flarum-js-client",
-  "version": "0.0.12",
-  "type": "module",
+  "version": "0.1.12",
+  "type": "commonjs",
   "description": "A Flarum PHP framework public endpoint client in Javascript/Typescript. Create your own clients or admin panel for your forum",
   "main": "dist/index.js",
   "scripts": {
