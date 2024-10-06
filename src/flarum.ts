@@ -39,6 +39,10 @@ export class FlarumApi {
         }
     }
 
+    public getUserId = (): number => {
+        return this.userId;
+    }
+
     /**
      * Creates a new FlarumApi authorized with the given token.
      * @param token 
