@@ -185,7 +185,10 @@ export type DiscussionData = {
         },
         firstPost?: {
             data: RelationshipElement
-        }
+        },
+        posts?: {
+            data: RelationshipElement[];
+        };
     }
 }
 
